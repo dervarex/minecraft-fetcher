@@ -1,0 +1,13 @@
+{
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/.jj",
+    "**/CVS",
+    "**/.classpath",
+    "**/.settings",
+    "**/__pycache__",
+    "**/__init__.py"
+  ]
+}
