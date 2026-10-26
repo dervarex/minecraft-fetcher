@@ -1,12 +1,13 @@
 import asyncio
+from io import BytesIO
 
 import discord
 from discord import app_commands
 from discord.ext import commands
 
+from minecraft.card import status_card
 from minecraft.fetcher import fetch_status
-from minecraft.embed import status_embed
-from minecraft.icon import icon_file
+from minecraft.png import svg_to_png
 
 
 class ServerStatus(commands.Cog):
@@ -26,13 +27,8 @@ class ServerStatus(commands.Cog):
             await interaction.followup.send(f"failed to reach `{address}`\nerror: `{type(e).__name__}`")
             return
 
-        embed = status_embed(address, status)
-        icon = icon_file(status)
-        if icon:
-            embed.set_thumbnail(url=f"attachment://{icon.filename}")
-            await interaction.followup.send(embed=embed, file=icon)
-        else:
-            await interaction.followup.send(embed=embed)
+        png = await asyncio.to_thread(svg_to_png, status_card(address, status))
+        await interaction.followup.send(file=discord.File(BytesIO(png), filename="status.png"))
 
 
 async def setup(bot):
