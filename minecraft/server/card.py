@@ -1,8 +1,8 @@
 from html import escape
 
-from minecraft.motd import motd_lines
-from minecraft.players import fullness, fullness_color, online_names
-from minecraft.svg import MONO, document, image, rect, shorten, text
+from minecraft.server.motd import motd_lines
+from minecraft.server.players import fullness, fullness_color, online_names
+from drawing.svg import MONO, document, image, rect, shorten, text
 
 # that card that gets shown there when /mc <server ip>
 WIDTH = 720

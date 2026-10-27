@@ -25,4 +25,5 @@ python main.py
 bot/         bot startup stuff
 features/    slash commands, one file per cmd
 minecraft/   minecraft logic
+drawing/     svg + png helpers for the images
 ```

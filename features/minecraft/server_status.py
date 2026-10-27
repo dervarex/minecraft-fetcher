@@ -5,9 +5,9 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
-from minecraft.card import status_card
-from minecraft.fetcher import fetch_status
-from minecraft.png import svg_to_png
+from minecraft.server.card import status_card
+from minecraft.server.fetcher import fetch_status
+from drawing.png import svg_to_png
 
 
 class ServerStatus(commands.Cog):
