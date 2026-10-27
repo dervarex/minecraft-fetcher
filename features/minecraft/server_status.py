@@ -10,6 +10,7 @@ from minecraft.server.fetcher import fetch_status
 from drawing.png import svg_to_png
 
 
+# gets a minecraft server's status, like your game client would
 class ServerStatus(commands.Cog):
     @app_commands.command(name="mc", description="get minecraft server status")
     @app_commands.describe(address="server ip")

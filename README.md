@@ -4,10 +4,11 @@ A Discord bot with (useful) Minecraft tools
 
 ## Commands
 
-|     Command     |             What it does              |
-| --------------- | ------------------------------------- |
-| `/mc <address>` | Shows a server's status and some info |
-| `/ping`         | Ask bot if he's alive                 |
+|      Command      |             What it does              |
+| ----------------- | ------------------------------------- |
+| `/mc <address>`   | Shows a server's status and some info |
+| `/account <name>` | Shows a player's uuid, skin and model |
+| `/ping`           | Ask bot if he's alive                 |
 
 ## Setup
 

@@ -3,7 +3,7 @@ from discord.ext import commands
 
 from bot.loader import all_feature_modules
 
-
+# Bot Intialization
 class Bot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix="!", intents=discord.Intents.default())

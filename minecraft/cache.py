@@ -1,6 +1,6 @@
 import time
 
-
+# Cache so if fourty people fetch at the same time we don't get nuked by a 429
 class TimedCache:
     def __init__(self, seconds):
         self.seconds = seconds
