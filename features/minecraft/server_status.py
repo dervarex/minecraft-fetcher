@@ -12,7 +12,7 @@ from drawing.png import svg_to_png
 
 # gets a minecraft server's status, like your game client would
 class ServerStatus(commands.Cog):
-    @app_commands.command(name="mc", description="get minecraft server status")
+    @app_commands.command(name="server", description="get minecraft server status")
     @app_commands.describe(address="server ip")
     @app_commands.checks.cooldown(1, 3.0, key=lambda i: i.user.id)
     async def mc(self, interaction: discord.Interaction, address: str):
