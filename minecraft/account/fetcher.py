@@ -17,6 +17,7 @@ class Account:
     uuid: str
     model: str
     skin: bytes | None
+    url: str | None
 
 
 def dashed(uuid):
@@ -33,11 +34,16 @@ async def fetch_account(name):
         return cached
 
     async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
-        name, uuid = await lookup_uuid(session, name)
+        canonical_name, uuid = await lookup_uuid(session, name)
         skin = await lookup_skin(session, uuid)
-        skin_png = await download(session, skin["url"]) if "url" in skin else None
+        url = skin.get("url")
+        skin_png = await download(session, url) if url else None
 
     model = skin.get("metadata", {}).get("model", "classic").upper()
-    account = Account(name, dashed(uuid), model, skin_png)
+    account = Account(canonical_name, dashed(uuid), model, skin_png, url)
     recent_accounts.set(key, account)
     return account
+
+
+async def fetch_skin_file(name):
+    return (await fetch_account(name)).url

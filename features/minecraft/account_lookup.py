@@ -7,7 +7,7 @@ from discord.ext import commands
 
 from drawing.png import svg_to_png
 from minecraft.account.card import account_card
-from minecraft.account.fetcher import fetch_account
+from minecraft.account.fetcher import fetch_account, fetch_skin_file
 from minecraft.account.mojang import AccountNotFound
 
 # since discord can't do that 3d view thing, lets just link namemc, maybe later own gh pages thing but it works for now
@@ -15,9 +15,11 @@ NAMEMC_URL = "https://namemc.com/profile/{uuid}"
 
 
 def view_3d_button(account):
-    view = discord.ui.View()
-    view.add_item(discord.ui.Button(label="View 3D", url=NAMEMC_URL.format(uuid=account.uuid)))
-    return view
+    return discord.ui.Button(label="View 3D", url=NAMEMC_URL.format(uuid=account.uuid))
+
+async def view_skin_file_button(account):
+    skin_url = await fetch_skin_file(account.name)
+    return discord.ui.Button(label="View Skin File", url=skin_url)
 
 
 # Account Lookup, takes data from official mojang api and links namemc for 3d view
@@ -40,7 +42,12 @@ class AccountLookup(commands.Cog):
 
         png = await asyncio.to_thread(svg_to_png, account_card(account))
         file = discord.File(BytesIO(png), filename="account.png")
-        await interaction.followup.send(file=file, view=view_3d_button(account))
+
+        view = discord.ui.View()
+        view.add_item(view_3d_button(account))
+        view.add_item(await view_skin_file_button(account))
+
+        await interaction.followup.send(file=file, view=view)
 
 
 async def setup(bot):
